@@ -1,6 +1,6 @@
 import requests
 import os
-from datetime import datetime
+from datetime import datetime, timedelta
 
 # OpenWeather API 키
 API_KEY = os.getenv("OPENWEATHER_API_KEY")
@@ -25,7 +25,11 @@ def get_weather():
 def update_readme():
     """README.md 파일을 업데이트"""
     weather_info = get_weather()
-    now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    
+    # UTC 현재 시간 가져와서 한국 시간으로 변환 (UTC+9)
+    now_utc = datetime.utcnow()
+    now_kst = now_utc + timedelta(hours=9)
+    now_str = now_kst.strftime("%Y-%m-%d %H:%M:%S")
 
     readme_content = f"""
 # Weather API Status
@@ -35,7 +39,7 @@ def update_readme():
 ## 현재 서울 날씨
 > {weather_info}
 
-⏳ 업데이트 시간: {now} (UTC)
+⏳ 업데이트 시간: {now_str} (KST)
 
 ---
 자동 업데이트 봇에 의해 관리됩니다.
@@ -46,4 +50,3 @@ def update_readme():
 
 if __name__ == "__main__":
     update_readme()
-
