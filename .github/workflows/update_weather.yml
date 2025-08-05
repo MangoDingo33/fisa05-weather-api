@@ -2,8 +2,8 @@ name: Update Weather in README
 
 on:
   schedule:
-    - cron: "*/1 * * * *"  # 매일 오후 3시 (UTC 기준 6시)
-  workflow_dispatch:  # 수동 실행 가능
+    - cron: "0 6,18 * * *"  # 하루 2번 (UTC 기준 6시/18시)
+  workflow_dispatch:
 
 jobs:
   update-readme:
